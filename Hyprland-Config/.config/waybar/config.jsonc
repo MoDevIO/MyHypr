@@ -1,0 +1,143 @@
+[
+	//--- Main Monitor (DP-1) ---//
+	{
+		"include": [
+			"~/.config/waybar/modules/*.jsonc",
+			"~/.config/waybar/modules/custom/*.jsonc",
+			"~/.config/waybar/modules/hyprland/*.jsonc"
+		],
+
+		"modules-left": [
+			"group/user",
+			"custom/left_div#1",
+			"hyprland/workspaces#dp1",
+			"custom/right_div#1",
+			"hyprland/window"
+		],
+		"modules-center": [
+			"custom/left_div#2",
+			"temperature",
+			"custom/left_div#3",
+			"memory",
+			"custom/left_div#4",
+			"cpu",
+			"custom/left_inv#1",
+			"custom/left_div#5",
+			"custom/distro",
+			"custom/right_div#2",
+			"custom/right_inv#1",
+			"idle_inhibitor",
+			"clock#time",
+			"custom/right_div#3",
+			"clock#date",
+			"custom/right_div#4",
+			"network",
+			"bluetooth",
+			"custom/system_update",
+			"custom/right_div#5"
+		],
+		"modules-right": [
+			"mpris",
+			"custom/left_div#6",
+			"group/pulseaudio",
+			"custom/left_div#7",
+			"backlight",
+			"custom/left_div#8",
+			"battery",
+			"custom/left_inv#2",
+			"custom/power_menu"
+		],
+
+		/*-------------
+		    options
+		-------------*/
+
+		// "expand-center":
+		// "expand-left":
+		// "expand-right":
+		"layer": "top",
+		"output": "DP-1",
+		// "position":
+		"height": 0,
+		"width": 0,
+		"margin": 0,
+		// "margin-top":
+		// "margin-left":
+		// "margin-bottom":
+		// "margin-right":
+		// "no-center":
+		"spacing": 0,
+		// "name":
+		"mode": "dock",
+		// "start_hidden":
+		// "modifier-reset":
+		// "exclusive":
+		// "fixed-center":
+		// "passthrough":
+		// "ipc":
+		// "id":
+		"reload_style_on_change": true,
+		// "on-sigusr1":
+		// "on-sigusr2":
+
+		// Configuration for DP-1 Workspaces
+		"hyprland/workspaces#dp1": {
+			"format": "{icon}",
+            "format-icons": {
+                "active": "",
+                "default": ""
+            },
+            "persistent-workspaces": {
+                "DP-1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            },
+            "cursor": true,
+            "all-outputs": false
+		}
+	},
+
+	// Second monitor (HDMI-A-1) - Workspaces and window (centered)
+	{
+		"include": [
+			"~/.config/waybar/modules/*.jsonc",
+			"~/.config/waybar/modules/custom/*.jsonc",
+			"~/.config/waybar/modules/hyprland/*.jsonc"
+		],
+
+		"modules-left": [
+			"hyprland/window"
+		],
+		"modules-center": [
+			"custom/left_div#1",
+			"hyprland/workspaces#hdmi", // Specific name
+			"custom/right_div#1"
+		],
+		"modules-right": [
+			"custom/left_div#5",
+			"custom/distro"
+			//"custom/right_div#2"
+		],
+
+		"layer": "top",
+		"output": "HDMI-A-1",
+		"height": 0,
+		"width": 0,
+		"margin": 0,
+		"spacing": 0,
+		"mode": "dock",
+		"reload_style_on_change": true,
+
+		// Configuration for HDMI-A-1 Workspaces
+		"hyprland/workspaces#hdmi": {
+			"format": "{icon}",
+            "format-icons": {
+                "active": "",
+                "default": ""
+            },
+            "persistent-workspaces": {
+                "HDMI-A-1": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+            },
+            "cursor": true,
+            "all-outputs": false
+		}
+	}
+]
