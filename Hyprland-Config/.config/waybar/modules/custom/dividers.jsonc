@@ -70,9 +70,25 @@
 		"format": "",
 		"tooltip": false
 	},
+	"custom/right_div#6": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right_div#7": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right_div#8": {
+		"format": "",
+		"tooltip": false
+	},
 
 	// inverse
 	"custom/right_inv#1": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right_inv#2": {
 		"format": "",
 		"tooltip": false
 	}

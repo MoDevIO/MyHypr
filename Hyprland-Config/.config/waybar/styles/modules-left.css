@@ -6,6 +6,24 @@
 #custom-right_div.1 {
 	color: @workspaces;
 }
+
+/* monitor 2 left dividers */
+#custom-right_inv.2 {
+	color: @battery;
+}
+#custom-right_div.8 {
+	background-color: @battery;
+	color: @backlight;
+}
+#custom-right_div.7 {
+	background-color: @backlight;
+	color: @volume;
+}
+#custom-right_div.6 {
+	background-color: @volume;
+	color: @main-bg;
+}
+
 #workspaces {
 	padding: 0 1px;
 	background-color: @workspaces;
