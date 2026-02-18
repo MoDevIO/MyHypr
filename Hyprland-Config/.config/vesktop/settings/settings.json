@@ -550,6 +550,12 @@
         },
         "WebScreenShareFixes": {
             "enabled": true
+        },
+        "DisableDeepLinks": {
+            "enabled": true
+        },
+        "WebContextMenus": {
+            "enabled": true
         }
     },
     "uiElements": {
@@ -566,6 +572,6 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1771326688121
+        "settingsSyncVersion": 1771362534535
     }
 }

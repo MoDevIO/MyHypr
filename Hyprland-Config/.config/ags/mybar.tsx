@@ -3,13 +3,12 @@ import { Astal, Gtk, Gdk } from "ags/gtk4";
 import { createPoll } from "ags/time";
 import { exec } from "ags/process";
 
-
 app.start({
   css: `
     .bar {
       background: alpha(#181818, 0.9);
       color: #d4d4d4;
-      font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", monospace;
+      font-family: "JetBrains Mono Nerd Font", "Symbols Nerd Font", monospace;
       font-size: 13px;
       padding: 4px 12px;
       min-height: 32px;
@@ -91,8 +90,14 @@ app.start({
     // ── Workspaces ────────────────────────────────────────
     // Poll returns JSON: { actives: number[], occupied: number[] }
     // actives = workspace that is active on EACH monitor (not just the focused one)
-    const wsData = createPoll("{\"actives\":[1],\"occupied\":[]}", 100,
-      ["bash", "-c", "echo \"$(hyprctl monitors -j | tr -d '\\n' | grep -oP '\"activeWorkspace\":\\s*\\{[^}]*\\}' | grep -oP '\"id\":\\s*\\K[0-9]+' | tr '\\n' ','):$(hyprctl workspaces -j | grep -o '\"id\": *[0-9]*' | grep -o '[0-9]*' | tr '\\n' ',')\""],
+    const wsData = createPoll(
+      '{"actives":[1],"occupied":[]}',
+      100,
+      [
+        "bash",
+        "-c",
+        "echo \"$(hyprctl monitors -j | tr -d '\\n' | grep -oP '\"activeWorkspace\":\\s*\\{[^}]*\\}' | grep -oP '\"id\":\\s*\\K[0-9]+' | tr '\\n' ','):$(hyprctl workspaces -j | grep -o '\"id\": *[0-9]*' | grep -o '[0-9]*' | tr '\\n' ',')\"",
+      ],
       (out) => {
         try {
           const [activesStr, occupiedStr] = out.split(":");
@@ -106,42 +111,56 @@ app.start({
     );
 
     // ── CPU ───────────────────────────────────────────────
-    const cpu = createPoll("CPU: 0%", 2000,
+    const cpu = createPoll(
+      " 0%",
+      2000,
       ["bash", "-c", "top -bn1 | grep '%Cpu' | awk '{print $2}'"],
       (out) => {
         const val = parseFloat(out) || 0;
-        return `CPU: ${val.toFixed(0)}%`;
+        return ` ${val.toFixed(0)}%`;
       },
     );
 
     // ── Memory ────────────────────────────────────────────
-    const mem = createPoll("MEM: 0%", 3000,
+    const mem = createPoll(
+      " 0%",
+      3000,
       ["bash", "-c", "free -m | awk '/Mem:/{printf \"%.0f\", $3/$2*100}'"],
       (out) => {
         const val = parseFloat(out) || 0;
-        return `MEM: ${val}%`;
+        return ` ${val}%`;
       },
     );
 
     // ── Volume ────────────────────────────────────────────
-    const vol = createPoll("", 1000,
+    const vol = createPoll(
+      "󰕾 0%",
+      1000,
       ["wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"],
       (out) => {
         const match = out.match(/Volume:\s+([\d.]+)/);
         const pct = match ? Math.round(parseFloat(match[1]) * 100) : 0;
         const muted = out.includes("[MUTED]");
         const icon = muted ? "󰝟" : pct > 60 ? "󰕾" : pct > 30 ? "󰖀" : "󰕿";
-        return `VOL: ${icon} ${pct}%`;
+        return `${icon} ${pct}%`;
       },
     );
 
     // ── Music (playerctl) ─────────────────────────────────
-    const musicInfo = createPoll("", 2000,
-      ["bash", "-c", "playerctl metadata --format '{{artist}} — {{title}}' 2>/dev/null || echo ''"],
+    const musicInfo = createPoll(
+      "",
+      2000,
+      [
+        "bash",
+        "-c",
+        "playerctl metadata --format '{{artist}} — {{title}}' 2>/dev/null || echo ''",
+      ],
       (out) => {
         if (!out || out.includes("No players found")) return "";
         // Strip unsupported symbols: keep letters, digits, spaces, basic punctuation
-        const clean = out.replace(/[^\p{L}\p{N}\s\-—–_.,:;!?'"()&/\\@#]/gu, "").trim();
+        const clean = out
+          .replace(/[^\p{L}\p{N}\s\-—–_.,:;!?'"()&/\\@#]/gu, "")
+          .trim();
         if (!clean) return "";
         const track = clean.length > 40 ? clean.slice(0, 37) + "…" : clean;
         return `${track}`;
@@ -161,7 +180,8 @@ app.start({
               try {
                 const d = JSON.parse(ws);
                 if (d.actives.includes(realId)) return ["ws-btn", "ws-active"];
-                if (d.occupied.includes(realId)) return ["ws-btn", "ws-occupied"];
+                if (d.occupied.includes(realId))
+                  return ["ws-btn", "ws-occupied"];
                 return ["ws-btn", "ws-empty"];
               } catch {
                 return ["ws-btn", "ws-empty"];
@@ -169,7 +189,9 @@ app.start({
             })}
             label={`${displayId}`}
             onClicked={() => {
-              try { exec(["hyprctl", "dispatch", "workspace", `${realId}`]); } catch {}
+              try {
+                exec(["hyprctl", "dispatch", "workspace", `${realId}`]);
+              } catch {}
             }}
           />
         );
@@ -179,7 +201,10 @@ app.start({
     // Monitor 1 (DP-1): workspaces 1-10
     const wsButtonsM1 = makeWsButtons([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0);
     // Monitor 2 (HDMI-A-1): workspaces 11-20, displayed as 1-10
-    const wsButtonsM2 = makeWsButtons([11, 12, 13, 14, 15, 16, 17, 18, 19, 20], 10);
+    const wsButtonsM2 = makeWsButtons(
+      [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      10,
+    );
 
     // ── Main bar (DP-1, monitor 1) ────────────────────────
     const left = (
@@ -190,11 +215,7 @@ app.start({
       </box>
     );
 
-    const center = (
-      <box spacing={4}>
-        {...wsButtonsM1}
-      </box>
-    );
+    const center = <box spacing={4}>{...wsButtonsM1}</box>;
 
     const right = (
       <box halign={Gtk.Align.END} spacing={4}>
@@ -205,11 +226,7 @@ app.start({
     );
 
     // ── Secondary bar (HDMI-A-1, monitor 0) ───────────────
-    const m2Center = (
-      <box spacing={4}>
-        {...wsButtonsM2}
-      </box>
-    );
+    const m2Center = <box spacing={4}>{...wsButtonsM2}</box>;
 
     // Main bar on DP-1
     <window
@@ -220,11 +237,7 @@ app.start({
       layer={Astal.Layer.TOP}
       cssClasses={["bar"]}
     >
-      <centerbox
-        startWidget={left}
-        centerWidget={center}
-        endWidget={right}
-      />
+      <centerbox startWidget={left} centerWidget={center} endWidget={right} />
     </window>;
 
     // Secondary bar on HDMI-A-1 (workspaces only)
@@ -236,9 +249,7 @@ app.start({
       layer={Astal.Layer.TOP}
       cssClasses={["bar"]}
     >
-      <centerbox
-        centerWidget={m2Center}
-      />
+      <centerbox centerWidget={m2Center} />
     </window>;
   },
 });
