@@ -1,0 +1,93 @@
+// ── Variables ──────────────────────────────────────────
+$bar-bg: rgba(24, 24, 24, 0.9);
+$bar-fg: #d4d4d4;
+$bar-font: "JetBrains Mono Nerd Font", "Symbols Nerd Font", monospace;
+
+// ── Bar ───────────────────────────────────────────────
+.bar {
+  background: $bar-bg;
+  color: $bar-fg;
+  font-family: $bar-font;
+  font-size: 13px;
+  padding: 4px 12px;
+  min-height: 32px;
+}
+
+.bar-section {
+  padding: 0 4px;
+}
+
+// ── Workspaces ────────────────────────────────────────
+.ws-btn {
+  min-width: 28px;
+  min-height: 24px;
+  border-radius: 6px;
+  margin: 2px 2px;
+  padding: 0 6px;
+  background: rgba(85, 85, 85, 0.3);
+  color: #888888;
+  font-weight: bold;
+
+  &:not(.ws-active):hover {
+    background: rgba(204, 204, 204, 0.25);
+    color: #888888;
+  }
+
+  &.ws-active {
+    background: #d4d4d4;
+    color: #181818;
+    /* intentionally no hover effect for the active workspace */
+  }
+
+  &.ws-occupied {
+    background: rgba(170, 170, 170, 0.3);
+    color: #cccccc;
+  }
+
+  &.ws-empty {
+    background: rgba(68, 68, 68, 0.2);
+    color: #555555;
+  }
+}
+
+// ── Clock & Date ──────────────────────────────────────
+.clock {
+  font-weight: bold;
+  font-size: 14px;
+  color: #e0e0e0;
+}
+
+.date {
+  color: #999999;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+// ── System Info ───────────────────────────────────────
+.sys-label {
+  margin: 0 6px;
+  font-size: 12px;
+  color: #bbbbbb;
+}
+
+// ── Music ─────────────────────────────────────────────
+.music-label {
+  color: #cccccc;
+  font-size: 12px;
+  margin: 0 6px;
+}
+
+.music-btn {
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 6px;
+  margin: 0 2px;
+  padding: 0 4px;
+  background: rgba(85, 85, 85, 0.3);
+  color: #cccccc;
+  font-size: 14px;
+
+  &:hover {
+    background: rgba(204, 204, 204, 0.2);
+  }
+}
