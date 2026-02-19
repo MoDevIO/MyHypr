@@ -26,6 +26,11 @@ BINDINGS[code_G5]="key ctrl+alt+shift+p # Collapse all folders in explorer"
 # --- Terminal (kitty) ---
 BINDINGS[kitty_G1]="key ctrl+l # Clear output"
 
+# --- File Manager (nautilus) ---
+BINDINGS[org.gnome.Nautilus_mouse-G3]="key alt+right # Forward"
+BINDINGS[org.gnome.Nautilus_G1]="key alt+right # Forward"
+BINDINGS[org.gnome.Nautilus_mouse-G4]="key alt+left # Backward"
+BINDINGS[org.gnome.Nautilus_G2]="key alt+left # Backward"
 
 
 # =====================
