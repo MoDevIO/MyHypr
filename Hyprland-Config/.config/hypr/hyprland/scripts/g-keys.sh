@@ -15,8 +15,8 @@ BINDINGS[zen_G2]="key ctrl+w # Close tab"
 BINDINGS[zen_G3]="key ctrl+shift+t # Reopen last closed tab"
 BINDINGS[zen_G4]="key ctrl+shift+tab # Tab left"
 BINDINGS[zen_G5]="key ctrl+tab # Tab right"
-BINDINGS[zen_M3]="key alt+right # Forward"
-BINDINGS[zen_M4]="key alt+left # Backward"
+BINDINGS[zen_mouse-G3]="key alt+right # Forward"
+BINDINGS[zen_mouse-G4]="key alt+left # Backward"
 
 # --- VS Code (code) ---
 BINDINGS[code_G1]="key ctrl+b # Toggle sidebar"
