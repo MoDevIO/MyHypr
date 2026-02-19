@@ -13,11 +13,27 @@ const M1_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 // Monitor 2 (HDMI-A-1): workspaces 11–20, displayed as 1–10
 const M2_IDS = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
+function monitorProps(connector: string, fallbackMonitor: number) {
+  const gdkmonitor = app.monitors.find(
+    (monitor) => monitor.get_connector() === connector,
+  )
+
+  if (gdkmonitor) {
+    return { gdkmonitor }
+  }
+
+  console.warn(
+    `[ags/bar] Monitor ${connector} not found, falling back to monitor index ${fallbackMonitor}.`,
+  )
+
+  return { monitor: fallbackMonitor }
+}
+
 export function MainBar() {
   return (
     <window
       visible
-      monitor={1}
+      {...monitorProps("DP-1", 1)}
       anchor={TOP | LEFT | RIGHT}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       layer={Astal.Layer.TOP}
@@ -46,7 +62,7 @@ export function SecondaryBar() {
   return (
     <window
       visible
-      monitor={0}
+      {...monitorProps("HDMI-A-1", 0)}
       anchor={TOP | LEFT | RIGHT}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       layer={Astal.Layer.TOP}
