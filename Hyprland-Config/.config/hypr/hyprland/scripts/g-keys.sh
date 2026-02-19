@@ -32,6 +32,9 @@ BINDINGS[org.gnome.Nautilus_G1]="key alt+right # Forward"
 BINDINGS[org.gnome.Nautilus_mouse-G4]="key alt+left # Backward"
 BINDINGS[org.gnome.Nautilus_G2]="key alt+left # Backward"
 
+# --- System-wide ---
+BINDINGS[_mouse-G2]="key super+r #App launcher"
+
 
 # =====================
 # END USER CONFIGURABLE SECTION
@@ -40,12 +43,25 @@ BINDINGS[org.gnome.Nautilus_G2]="key alt+left # Backward"
 ACTIVE_CLASS=$(hyprctl activewindow -j | grep -oP '"class":\s*"\K[^"]*')
 KEY="$1"
 
-# Try direct match, then fallback to wildcard (e.g. G3 for any app)
+# Try direct match, then fallback to app-agnostic (leading underscore) and bare-key entries
+# e.g. full:  org.gnome.Nautilus_mouse-G3
+#      _led:  _mouse-G3            (system-wide)
+#      bare:  mouse-G3             (also supported)
 binding_key="${ACTIVE_CLASS}_${KEY}"
 cmd_and_comment="${BINDINGS[$binding_key]}"
 
+# fallback to system-wide binding named with a leading underscore (e.g. [_mouse-G2])
+if [[ -z "$cmd_and_comment" ]]; then
+    cmd_and_comment="${BINDINGS[_${KEY}]}"
+fi
+
+# fallback to bare key (e.g. [mouse-G2] or [G3])
+if [[ -z "$cmd_and_comment" ]]; then
+    cmd_and_comment="${BINDINGS[${KEY}]}"
+fi
+
 if [[ -n "$cmd_and_comment" ]]; then
-    # Extract command before any # comment
-    cmd="${cmd_and_comment%%#*}"
-    echo $cmd | dotoolc
+    # extract command before any `#` comment and trim surrounding whitespace
+    cmd="$(echo "${cmd_and_comment%%#*}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+    echo "$cmd" | dotoolc
 fi
