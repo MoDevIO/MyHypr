@@ -48,6 +48,25 @@ $bar-font: "JetBrains Mono Nerd Font", "Symbols Nerd Font", monospace;
     background: rgba(68, 68, 68, 0.2);
     color: #555555;
   }
+
+  // App icon inside workspace button (grayscale filtered)
+  image {
+    -gtk-icon-size: 22px;
+    min-width: 22px;
+    min-height: 22px;
+    -gtk-icon-filter: grayscale(1);
+    opacity: 0.85;
+  }
+
+  &.ws-active image {
+    -gtk-icon-filter: grayscale(0.6);
+    opacity: 1;
+  }
+
+  // Workspace number (centered)
+  .ws-number {
+    font-weight: bold;
+  }
 }
 
 // ── Clock & Date ──────────────────────────────────────
