@@ -166,6 +166,32 @@ $bar-font: "JetBrains Mono Nerd Font", "Symbols Nerd Font", monospace;
   color: #bbbbbb;
 }
 
+// Volume slider (revealed on hover)
+.vol-slider {
+  margin: 0 6px;
+  min-height: 4px;
+
+  trough {
+    background: rgba(68, 68, 68, 0.5);
+    border-radius: 3px;
+    min-height: 4px;
+  }
+
+  highlight {
+    background: rgba(170, 170, 170, 0.6);
+    border-radius: 3px;
+    min-height: 4px;
+  }
+
+  slider {
+    background: rgba(150, 150, 150, 0.7);
+    border-radius: 50%;
+    min-width: 10px;
+    min-height: 10px;
+    margin: -3px 0;
+  }
+}
+
 // ── Music ─────────────────────────────────────────────
 .music-label {
   color: #cccccc;
