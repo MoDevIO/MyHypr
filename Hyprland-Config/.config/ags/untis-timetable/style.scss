@@ -1,0 +1,64 @@
+// ── Untis Timetable Popup ────────────────────────────────
+
+$popup-bg: #181818;
+$popup-fg: #d4d4d4;
+$popup-muted: #888888;
+$popup-surface: #2a2a2a;
+$popup-border: rgba(255, 255, 255, 0.8);
+$popup-font: "JetBrains Mono Nerd Font", "Symbols Nerd Font", monospace;
+
+window.TimetablePopup {
+  background: transparent;
+  font-family: $popup-font;
+  font-size: 13px;
+}
+
+.popup-container {
+  background: $popup-bg;
+  border: 2px solid $popup-border;
+  border-radius: 10px;
+  min-width: 500px;
+  min-height: 400px;
+  padding: 20px;
+  color: $popup-fg;
+}
+
+.popup-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+.popup-close {
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 8px;
+  background: $popup-fg;
+  color: $popup-bg;
+  font-weight: bold;
+  padding: 4px;
+
+  &:hover {
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+
+  &:active {
+    background: #aaaaaa;
+  }
+}
+
+.popup-body {
+  padding: 10px 0;
+}
+
+.popup-placeholder {
+  color: $popup-muted;
+  font-size: 14px;
+}
