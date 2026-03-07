@@ -34,10 +34,11 @@ $bar-font: "JetBrains Mono Nerd Font", "Symbols Nerd Font", monospace;
   padding: 0 6px;
 
   // Smooth transitions for workspace state changes
-  transition: background 280ms ease-in-out,
-              color 220ms ease-in-out,
-              min-width 350ms ease-in-out,
-              box-shadow 300ms ease-in-out;
+  transition:
+    background 280ms ease-in-out,
+    color 220ms ease-in-out,
+    min-width 350ms ease-in-out,
+    box-shadow 300ms ease-in-out;
 
   &:first-child {
     margin-left: 0;
@@ -197,23 +198,8 @@ $bar-font: "JetBrains Mono Nerd Font", "Symbols Nerd Font", monospace;
   color: #cccccc;
   font-size: 12px;
   margin: 0 6px;
-}
-
-.music-btn {
-  min-width: 24px;
-  min-height: 24px;
-  border-radius: 10px;
-  margin: 0 2px;
-  padding: 0 4px;
-  background: rgba(85, 85, 85, 0.3);
-  color: #cccccc;
-  font-size: 14px;
 
   &:hover {
-    background: rgba(204, 204, 204, 0.2);
+    color: #e0e0e0;
   }
-}
-
-.music-controls {
-  margin-left: 4px;
 }
