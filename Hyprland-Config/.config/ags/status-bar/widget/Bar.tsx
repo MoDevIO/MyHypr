@@ -46,11 +46,11 @@ function introSetup(self: Gtk.Widget, direction?: "left" | "right") {
   }, delay)
 }
 
-// Monitor 1 (DP-1): workspaces 1–10
-const M1_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// Monitor 1 (DP-1): workspaces 1–5
+const M1_IDS = [1, 2, 3, 4, 5]
 
-// Monitor 2 (HDMI-A-1): workspaces 11–20, displayed as 1–10
-const M2_IDS = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+// Monitor 2 (HDMI-A-1): workspaces 6–10, displayed as 1–5
+const M2_IDS = [6, 7, 8, 9, 10]
 
 function monitorProps(connector: string, fallbackMonitor: number) {
   const gdkmonitor = app.monitors.find(
@@ -88,13 +88,13 @@ export function MainBar() {
             cssClasses={["bar-island"]}
             $={(self) => introSetup(self, "left")}
           >
-            <Clock />
+            <Workspaces ids={M1_IDS} />
             <Music />
           </box>
         }
         centerWidget={
           <box cssClasses={["bar-island"]} $={(self) => introSetup(self)}>
-            <Workspaces ids={M1_IDS} />
+            <Clock />
           </box>
         }
         endWidget={
@@ -125,9 +125,13 @@ export function SecondaryBar() {
       application={app}
     >
       <centerbox
-        centerWidget={
-          <box cssClasses={["bar-island"]} $={(self) => introSetup(self)}>
-            <Workspaces ids={M2_IDS} displayOffset={10} />
+        startWidget={
+          <box
+            halign={Gtk.Align.START}
+            cssClasses={["bar-island"]}
+            $={(self) => introSetup(self, "left")}
+          >
+            <Workspaces ids={M2_IDS} displayOffset={5} />
           </box>
         }
       />

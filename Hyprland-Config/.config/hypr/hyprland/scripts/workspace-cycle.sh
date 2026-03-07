@@ -10,10 +10,10 @@ FOCUSED_MON=$(hyprctl monitors | awk '/^Monitor/{name=$2} /focused: yes/{print n
 
 if [ "$FOCUSED_MON" = "DP-1" ]; then
     MIN=1
-    MAX=10
+    MAX=5
 elif [ "$FOCUSED_MON" = "HDMI-A-1" ]; then
-    MIN=11
-    MAX=20
+    MIN=6
+    MAX=10
 else
     exit 1
 fi
