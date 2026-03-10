@@ -34,6 +34,10 @@ envsubst < "$HOME/.config/swaync/style.css.template" \
         > "$HOME/.config/swaync/style.css"
 swaync-client -rs 2>/dev/null
 
+# Cava
+envsubst < "$HOME/.config/cava/config.template" \
+        > "$HOME/.config/cava/config"
+
 # Hyprland
 envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
         > "$HOME/.config/hypr/hyprland/design.conf"
