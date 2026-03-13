@@ -191,15 +191,16 @@ apply_theme() {
     swaync-client -rs 2>/dev/null
 
     # VS Code
-        update_vscode_colors 2>/dev/null
+    update_vscode_colors 2>/dev/null
 
     # Cava
     envsubst < "$HOME/.config/cava/config.template" \
             > "$HOME/.config/cava/config"
 
-    # Rofi
-    envsubst < "$HOME/.config/rofi/colors.rasi.template" \
-            > "$HOME/.config/rofi/colors.rasi"
+        # Wofi
+        envsubst "$THEME_VARS" < "$HOME/.config/wofi/style.css.template" \
+            > "$HOME/.config/wofi/style.css"
+
 
     # Hyprland
     envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
@@ -217,11 +218,11 @@ apply_theme() {
     fi
 }
 
-chosen=$(ls -1 "$THEMES_DIR" | rofi -dmenu -p "Theme" -theme "$HOME/.config/rofi/launcher.rasi")
+chosen=$(ls -1 "$THEMES_DIR" | wofi --show dmenu --prompt "Theme")
 
 if [ -n "$chosen" ]; then
     if [ "$ENABLE_TRANSITION" = true ] && [ -x "$TRANSITION_DIR/theme_overlay" ]; then
-        # Wait for rofi to fully close before capturing
+        # Wait for wofi to fully close before capturing
         sleep 0.2
 
         # Capture the current screen for the transition overlay (PPM = fast)

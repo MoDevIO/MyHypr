@@ -202,9 +202,9 @@ update_vscode_colors 2>/dev/null
 envsubst < "$HOME/.config/cava/config.template" \
         > "$HOME/.config/cava/config"
 
-# Rofi
-envsubst < "$HOME/.config/rofi/colors.rasi.template" \
-        > "$HOME/.config/rofi/colors.rasi"
+# Wofi
+envsubst "$THEME_VARS" < "$HOME/.config/wofi/style.css.template" \
+        > "$HOME/.config/wofi/style.css"
 
 # Hyprland
 envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \

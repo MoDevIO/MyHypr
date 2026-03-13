@@ -1,8 +1,0 @@
-* {
-    background:     ${THEME_COLOR_ROFI_BG}FF;
-    background-alt: ${THEME_COLOR_ROFI_BG_ALT}FF;
-    foreground:     ${THEME_COLOR_ROFI_FG}FF;
-    selected:       ${THEME_COLOR_ROFI_SELECTED}FF;
-    active:         ${THEME_COLOR_ROFI_ACTIVE}FF;
-    urgent:         ${THEME_COLOR_ROFI_URGENT}FF;
-}

@@ -1,0 +1,11 @@
+# ~/.config/wofi/config
+mode=drun
+width=600
+height=500
+location=center
+show=drun
+prompt=  Search...
+allow_images=true
+image_size=40           # Larger icons for a "grid" feel
+hide_scroll=true
+insensitive=true
