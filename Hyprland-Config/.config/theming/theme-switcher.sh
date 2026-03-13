@@ -201,6 +201,11 @@ apply_theme() {
         envsubst "$THEME_VARS" < "$HOME/.config/wofi/style.css.template" \
             > "$HOME/.config/wofi/style.css"
 
+    # Spicetify
+    envsubst < "$HOME/.config/spicetify/Themes/marketplace/color.ini.template" \
+            | sed -E 's/^([[:space:]]*[A-Za-z0-9-]+[[:space:]]*=[[:space:]]*)#/\1/' \
+            > "$HOME/.config/spicetify/Themes/marketplace/color.ini"
+
 
     # Hyprland
     envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \

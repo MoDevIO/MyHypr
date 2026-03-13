@@ -1,0 +1,12 @@
+[Base]
+text               = ${THEME_COLOR_FG_COLOR}
+subtext            = ${THEME_COLOR_FG_DIMMED}
+main               = ${THEME_COLOR_BG_COLOR}
+sidebar            = ${THEME_COLOR_BG_COLOR}
+player             = ${THEME_COLOR_BG_COLOR}
+card               = ${THEME_COLOR_TERMINAL_COLOR_0}
+shadow             = ${THEME_COLOR_TERMINAL_COLOR_8}
+button             = ${THEME_COLOR_ACCENT}
+button-active      = ${THEME_COLOR_ACCENT}
+button-disabled    = ${THEME_COLOR_TERMINAL_COLOR_0}
+border             = ${THEME_COLOR_TERMINAL_COLOR_8}
