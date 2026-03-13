@@ -32,6 +32,7 @@
 static const char *g_img_path;
 static const char *g_frag_path;
 static float       g_duration = 1.2f;
+static int         g_monitor_index = -1;
 
 /* ------------------------------------------------------------------ */
 /* GL state                                                            */
@@ -234,6 +235,29 @@ static gboolean on_tick(GtkWidget *widget, GdkFrameClock *clock, gpointer data) 
     return G_SOURCE_CONTINUE;
 }
 
+static void apply_monitor_target(GtkWindow *win) {
+    if (g_monitor_index < 0) return;
+
+    GdkDisplay *display = gdk_display_get_default();
+    if (!display) return;
+
+    GListModel *monitors = gdk_display_get_monitors(display);
+    if (!monitors) return;
+
+    guint count = g_list_model_get_n_items(monitors);
+    if ((guint)g_monitor_index >= count) {
+        fprintf(stderr, "Warning: monitor index %d out of range (count=%u)\n",
+                g_monitor_index, count);
+        return;
+    }
+
+    GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, (guint)g_monitor_index));
+    if (!monitor) return;
+
+    gtk_layer_set_monitor(win, monitor);
+    g_object_unref(monitor);
+}
+
 /* ------------------------------------------------------------------ */
 /* App activate                                                        */
 /* ------------------------------------------------------------------ */
@@ -249,6 +273,7 @@ static void activate(GtkApplication *app, gpointer data) {
     gtk_layer_set_anchor(win, GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
     gtk_layer_set_anchor(win, GTK_LAYER_SHELL_EDGE_LEFT,   TRUE);
     gtk_layer_set_anchor(win, GTK_LAYER_SHELL_EDGE_RIGHT,  TRUE);
+    apply_monitor_target(win);
     gtk_layer_set_exclusive_zone(win, -1);
     gtk_layer_set_keyboard_mode(win,
         GTK_LAYER_SHELL_KEYBOARD_MODE_NONE);
@@ -281,13 +306,14 @@ static void activate(GtkApplication *app, gpointer data) {
 int main(int argc, char *argv[]) {
     if (argc < 3) {
         fprintf(stderr,
-            "Usage: %s <screenshot.png> <shader.frag> [duration]\n", argv[0]);
+            "Usage: %s <screenshot.png> <shader.frag> [duration] [monitor_index]\n", argv[0]);
         return 1;
     }
 
     g_img_path  = argv[1];
     g_frag_path = argv[2];
     if (argc >= 4) g_duration = (float)atof(argv[3]);
+    if (argc >= 5) g_monitor_index = atoi(argv[4]);
 
     /* Skip unnecessary GTK subsystems for faster startup */
     g_setenv("GTK_A11Y", "none", TRUE);

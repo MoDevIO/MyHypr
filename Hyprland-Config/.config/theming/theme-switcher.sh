@@ -234,23 +234,57 @@ if [ -n "$chosen" ]; then
         # Wait for wofi to fully close before capturing
         sleep 0.2
 
-        # Capture the current screen for the transition overlay (PPM = fast)
-        SCREENSHOT="/tmp/theme_transition_$$.ppm"
-        monitor=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name' 2>/dev/null)
-        if [ -n "$monitor" ]; then
-            grim -t ppm -o "$monitor" "$SCREENSHOT"
-        else
-            grim -t ppm "$SCREENSHOT"
-        fi
+        MONITOR_LIST="/tmp/theme_transition_monitors_$$.txt"
+        SCREENSHOTS=""
+        OVERLAY_PIDS=""
+        monitor_index=0
+
+        hyprctl monitors -j | jq -r '.[].name' > "$MONITOR_LIST" 2>/dev/null
+
+        while IFS= read -r monitor; do
+            [ -n "$monitor" ] || continue
+
+            SCREENSHOT="/tmp/theme_transition_${$}_${monitor_index}.ppm"
+            if grim -t ppm -o "$monitor" "$SCREENSHOT"; then
+                SCREENSHOTS="$SCREENSHOTS $SCREENSHOT"
+            fi
+
+            monitor_index=$((monitor_index + 1))
+        done < "$MONITOR_LIST"
 
         # Apply the theme immediately behind the frozen overlay
         (sleep 0.05 && apply_theme "$chosen") &
+        APPLY_PID=$!
 
-        # Overlay: 1.2s hold (theme applies) + 1.3s circle reveal = 2.5s total
-        "$TRANSITION_DIR/theme_overlay" "$SCREENSHOT" "$TRANSITION_DIR/circle_reveal.frag" 2.5
+        monitor_index=0
+        while IFS= read -r monitor; do
+            [ -n "$monitor" ] || continue
 
-        wait 2>/dev/null
-        rm -f "$SCREENSHOT"
+            SCREENSHOT="/tmp/theme_transition_${$}_${monitor_index}.ppm"
+            if [ -f "$SCREENSHOT" ]; then
+                # One overlay per monitor keeps the reveal synced on multi-head setups.
+                "$TRANSITION_DIR/theme_overlay" "$SCREENSHOT" "$TRANSITION_DIR/circle_reveal.frag" 2.5 "$monitor_index" &
+                OVERLAY_PIDS="$OVERLAY_PIDS $!"
+            fi
+
+            monitor_index=$((monitor_index + 1))
+        done < "$MONITOR_LIST"
+
+        if [ -z "$OVERLAY_PIDS" ]; then
+            SCREENSHOT="/tmp/theme_transition_$$.ppm"
+            grim -t ppm "$SCREENSHOT"
+            SCREENSHOTS="$SCREENSHOTS $SCREENSHOT"
+            "$TRANSITION_DIR/theme_overlay" "$SCREENSHOT" "$TRANSITION_DIR/circle_reveal.frag" 2.5
+        fi
+
+        for pid in $OVERLAY_PIDS; do
+            wait "$pid" 2>/dev/null
+        done
+
+        wait "$APPLY_PID" 2>/dev/null
+
+        rm -f "$MONITOR_LIST"
+        rm -f $SCREENSHOTS
     else
         # No animation — apply theme directly
         apply_theme "$chosen"
