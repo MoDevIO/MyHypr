@@ -36,7 +36,7 @@ Switch themes instantly with:
 
 ## Themed Apps
 
-Kitty · AGS status bar · Vesktop · Swaync · Hyprland · Rofi · Cava · swww wallpaper
+Kitty · AGS status bar · Vesktop · Swaync · Hyprland · Rofi · Cava · swww wallpaper · VS-Code
 
 ## Setup
 
