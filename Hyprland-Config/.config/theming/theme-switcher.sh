@@ -227,7 +227,7 @@ apply_theme() {
     fi
 }
 
-chosen=$(ls -1 "$THEMES_DIR" | wofi --show dmenu --prompt "Theme")
+chosen=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort | wofi --show dmenu --prompt "Theme")
 
 if [ -n "$chosen" ]; then
     if [ "$ENABLE_TRANSITION" = true ] && [ -x "$TRANSITION_DIR/theme_overlay" ]; then
