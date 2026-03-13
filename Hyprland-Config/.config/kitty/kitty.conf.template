@@ -27,8 +27,8 @@ listen_on unix:/tmp/mykitty.socket
 # Colors
 
 # The basic colors
-foreground              ${THEME_COLOR_FG_COLOR}
-background              ${THEME_COLOR_BG_COLOR}
+foreground              ${THEME_COLOR_KITTY_FG}
+background              ${THEME_COLOR_KITTY_BG}
 selection_foreground    ${THEME_COLOR_TERMINAL_SELECTION_FG_COLOR}
 selection_background    ${THEME_COLOR_TERMINAL_SELECTION_BG_COLOR}
 
