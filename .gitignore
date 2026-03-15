@@ -23,3 +23,9 @@ Hyprland-Config/.config/fastfetch/config.jsonc
 Hyprland-Config/.config/spicetify/Themes/marketplace/color.ini
 Hyprland-Config/.config/wofi/style.css
 Hyprland-Config/.config/vesktop/settings/settings.json
+
+Hyprland-Config/.themes/MyTheme/gtk-4.0/libadwaita.css
+
+Hyprland-Config/.themes/MyTheme/gtk-4.0/libadwaita-tweaks.css
+
+Hyprland-Config/.themes/MyTheme/gtk-3.0/gtk.css
