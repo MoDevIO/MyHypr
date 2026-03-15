@@ -215,10 +215,58 @@ envsubst < "$HOME/.config/spicetify/Themes/marketplace/color.ini.template" \
 envsubst "$THEME_VARS" < "$HOME/.config/fastfetch/config.jsonc.template" \
         > "$HOME/.config/fastfetch/config.jsonc"
 
+# GTK Theme (MyTheme)
+if [ -f "$HOME/.themes/MyTheme/index.theme.template" ]; then
+        envsubst "$THEME_VARS" < "$HOME/.themes/MyTheme/index.theme.template" \
+                > "$HOME/.themes/MyTheme/index.theme"
+fi
+if [ -f "$HOME/.themes/MyTheme/gtk-3.0/gtk.css.template" ]; then
+        envsubst "$THEME_VARS" < "$HOME/.themes/MyTheme/gtk-3.0/gtk.css.template" \
+                > "$HOME/.themes/MyTheme/gtk-3.0/gtk.css"
+fi
+if [ -f "$HOME/.themes/MyTheme/gtk-3.0/gtk-dark.css.template" ]; then
+        envsubst "$THEME_VARS" < "$HOME/.themes/MyTheme/gtk-3.0/gtk-dark.css.template" \
+                > "$HOME/.themes/MyTheme/gtk-3.0/gtk-dark.css"
+fi
+if [ -f "$HOME/.themes/MyTheme/gtk-4.0/gtk.css.template" ]; then
+        envsubst "$THEME_VARS" < "$HOME/.themes/MyTheme/gtk-4.0/gtk.css.template" \
+                > "$HOME/.themes/MyTheme/gtk-4.0/gtk.css"
+fi
+if [ -f "$HOME/.themes/MyTheme/gtk-4.0/gtk-dark.css.template" ]; then
+        envsubst "$THEME_VARS" < "$HOME/.themes/MyTheme/gtk-4.0/gtk-dark.css.template" \
+                > "$HOME/.themes/MyTheme/gtk-4.0/gtk-dark.css"
+fi
+if [ -f "$HOME/.themes/MyTheme/gtk-4.0/libadwaita.css.template" ]; then
+        envsubst "$THEME_VARS" < "$HOME/.themes/MyTheme/gtk-4.0/libadwaita.css.template" \
+                > "$HOME/.themes/MyTheme/gtk-4.0/libadwaita.css"
+fi
+if [ -f "$HOME/.themes/MyTheme/gtk-4.0/libadwaita-tweaks.css.template" ]; then
+        envsubst "$THEME_VARS" < "$HOME/.themes/MyTheme/gtk-4.0/libadwaita-tweaks.css.template" \
+                > "$HOME/.themes/MyTheme/gtk-4.0/libadwaita-tweaks.css"
+fi
+
+# Ensure GTK apps use the generated MyTheme files.
+if command -v gsettings >/dev/null 2>&1; then
+        gsettings set org.gnome.desktop.interface gtk-theme "MyTheme" 2>/dev/null || true
+fi
+
 # Hyprland
 envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
         > "$HOME/.config/hypr/hyprland/design.conf"
 hyprctl reload 2>/dev/null
+
+# Reload running GTK app instances (delayed so theme files and hypr reload settle).
+GTK_RELOAD_SCRIPT="$HOME/.config/hypr/hyprland/scripts/reload-gtk-theme.sh"
+if [ -f "$GTK_RELOAD_SCRIPT" ]; then
+        (
+                sleep 0.4
+                if [ -x "$GTK_RELOAD_SCRIPT" ]; then
+                        "$GTK_RELOAD_SCRIPT"
+                else
+                        sh "$GTK_RELOAD_SCRIPT"
+                fi
+        ) >/dev/null 2>&1 &
+fi
 
 # Wallpaper (swww)
 THEME_DIR="$HOME/.config/theming/themes/${THEME}"
