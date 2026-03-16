@@ -24,19 +24,11 @@ Switch themes instantly with:
 ~/.config/theming/reload-theme.sh <theme>
 ```
 
-<p>
-  <img src="Hyprland-Config/.config/theming/themes/grayscale/macos_minimal.jpg" width="19%" title="Grayscale">
-  <img src="Hyprland-Config/.config/theming/themes/everforest/everforest.jpg" width="19%" title="Everforest">
-  <img src="Hyprland-Config/.config/theming/themes/summer/moonlight-window-3840x2160-22169.png" width="19%" title="Summer">
-  <img src="Hyprland-Config/.config/theming/themes/cold/macos-mojave-sand-dunes-mojave-desert-california-night-dark-3840x2160-4051.jpg" width="19%" title="Cold">
-  <img src="Hyprland-Config/.config/theming/themes/purple/macos-monterey-wwdc-21-stock-dark-mode-5k-3840x2160-5585.jpg" width="19%" title="Purple">
-</p>
-
-`grayscale` · `everforest` · `summer` · `cold` · `purple`
+`Grayscale` · `Everforest` · `Summer` · `Cold` · `Purple` · `Mo`
 
 ## Themed Apps
 
-Kitty · AGS status bar · Vesktop · Swaync · Hyprland · Wofi · Cava · swww wallpaper · VS-Code · Spotify
+Terminal · Status-Bar · Discord · Notification · Hyprland · Wofi · Cava · Wallpaper · VS-Code · Spotify · GTK-Theme
 
 ## Setup
 
