@@ -3,6 +3,7 @@
 My personal Hyprland rice setup...
 
 ## Screenshots
+### Outdated...
 
 <p>
   <img src="screenshots/Statusbar.png" width="100%">
