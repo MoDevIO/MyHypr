@@ -2,8 +2,10 @@
 
 My personal Hyprland rice setup...
 <div>
-
-  ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/MoDevIO/HyprDotfiles?style=for-the-badge&labelColor=%23262626&color=%23b960bd)
+  
+  ![Static Badge](https://img.shields.io/badge/Author-MoDevIO-_?style=for-the-badge&labelColor=291010&color=bd6060)
+  ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/MoDevIO/HyprDotfiles?style=for-the-badge&labelColor=291029&color=b960bd)
+  ![Static Badge](https://img.shields.io/badge/Themed%20Applications-11-_?style=for-the-badge&labelColor=101e29&color=60a6bd)
   
 </div>
 
