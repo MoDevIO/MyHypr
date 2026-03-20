@@ -1,6 +1,10 @@
 # My Hyprland Dotfiles
 
 My personal Hyprland rice setup...
+<div>
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/MoDevIO/HyprDotfiles?style=for-the-badge&labelColor=%23262626&color=%23b960bd)
+  
+</div>
 
 ## Screenshots
 ### Outdated...
