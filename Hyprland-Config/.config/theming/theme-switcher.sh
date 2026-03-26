@@ -264,13 +264,13 @@ apply_theme() {
         ) >/dev/null 2>&1 &
     fi
 
-    # Wallpaper (swww) — instant swap, overlay handles the visual transition
+    # Wallpaper (awww) — instant swap, overlay handles the visual transition
     THEME_DIR="$HOME/.config/theming/themes/${THEME}"
     WALLPAPER=$(find "$THEME_DIR" -maxdepth 1 -type f \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.webp' \) | head -1)
     if [ -n "$WALLPAPER" ]; then
-        swww img -o DP-1 "$WALLPAPER" --resize crop \
+        awww img -o DP-1 "$WALLPAPER" --resize crop \
             --transition-type simple --transition-duration 0 --transition-fps 144
-        swww img -o HDMI-A-1 "$WALLPAPER" --resize crop \
+        awww img -o HDMI-A-1 "$WALLPAPER" --resize crop \
             --transition-type simple --transition-duration 0 --transition-fps 144
     fi
 }
