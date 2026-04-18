@@ -31,7 +31,7 @@ animations {
 label {
     monitor = DP-1
     text = $TIME12
-    color = rgba(255, 255, 255, 0.97)
+    color = rgba(${THEME_COLOR_HYPR_ACCENT})
     font_size = 180
     font_family = Bungee
     position = 0, 0
@@ -66,7 +66,7 @@ input-field {
     fade_on_empty = false
     fade_timeout = 2000
 
-    check_color = rgba(255, 255, 255, 0.0)
+    check_color = rgba(${THEME_COLOR_HYPR_ACCENT})
     fail_color = rgba(255, 255, 255, 0.0)
     capslock_color = rgba(255, 255, 255, 0.0)
     numlock_color = rgba(255, 255, 255, 0.0)

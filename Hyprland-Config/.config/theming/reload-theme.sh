@@ -164,6 +164,26 @@ update_vscode_colors() (
         mv "$output_file" "$SETTINGS_FILE"
 )
 
+        render_hyprlock_config() (
+                set -eu
+
+                TEMPLATE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprlock.conf.template"
+                OUTPUT_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprlock.conf"
+
+                [ -f "$TEMPLATE_FILE" ] || exit 0
+
+                HYPRLOCK_THEME_VARS=$(env | grep -o '^THEME_COLOR_[A-Za-z0-9_]*' | sed 's/^/${/;s/$/}/' | tr '\n' ' ')
+                rendered_file=$(mktemp)
+
+                cleanup() {
+                        rm -f "$rendered_file"
+                }
+                trap cleanup EXIT INT TERM
+
+                envsubst "$HYPRLOCK_THEME_VARS" < "$TEMPLATE_FILE" > "$rendered_file"
+                mv "$rendered_file" "$OUTPUT_FILE"
+        )
+
 # Persist current theme name for other scripts (wallpaper, etc.)
 echo "$THEME" > "$HOME/.config/theming/current-theme"
 
@@ -253,6 +273,7 @@ fi
 # Hyprland
 envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
         > "$HOME/.config/hypr/hyprland/design.conf"
+    render_hyprlock_config
 hyprctl reload 2>/dev/null
 
 # Reload running GTK app instances (delayed so theme files and hypr reload settle).
