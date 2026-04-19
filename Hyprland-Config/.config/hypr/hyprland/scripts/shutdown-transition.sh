@@ -61,6 +61,6 @@ done
 DPMS_TRIGGER_AT=$(awk -v d="$DURATION" 'BEGIN { printf "%.3f", d * 0.8 }')
 sleep "$DPMS_TRIGGER_AT"
 
-hyprctl dispatch dpms off || true
+# hyprctl dispatch dpms off || true
 sleep 1
 shutdown now
