@@ -3,13 +3,32 @@
 # 1. Get current workspace
 current_ws=$(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .activeWorkspace.id')
 
-# 2. Get a UNIQUE list of window classes (no duplicates, no addresses)
-# This is what you will see in wofi
-choice=$(hyprctl clients -j | jq -r '.[].class' | sort -u | wofi --dmenu)
+# 2. Build a list of windows with numbered duplicates by class
+declare -A window_addresses
+declare -A class_counts
+choices=()
+while IFS=$'\n' read -r line; do
+    class=${line%%||*}
+    rest=${line#*||}
+    title=${rest%%//*}
+    address=${rest#*//}
 
-if [ -n "$choice" ]; then
-    # 3. Find the address of the first window that matches that class
-    window_address=$(hyprctl clients -j | jq -r ".[] | select(.class == \"$choice\") | .address" | head -n 1)
+    class_counts["$class"]=$((class_counts["$class"] + 1))
+    idx=${class_counts["$class"]}
+    display="$class $idx"
+    if [ -n "$title" ] && [ "$title" != "null" ]; then
+        display="$display — $title"
+    fi
+
+    window_addresses["$display"]="$address"
+    choices+=("$display")
+done < <(hyprctl clients -j | jq -r '.[] | "\(.class)||\(.title)//\(.address)"')
+
+# 3. Ask the user to pick one specific window
+choice=$(printf '%s\n' "${choices[@]}" | wofi --dmenu)
+
+if [ -n "$choice" ] && [ -n "${window_addresses[$choice]}" ]; then
+    window_address=${window_addresses[$choice]}
 
     # 4. Summon it to your workspace and move it to the cursor
     hyprctl dispatch movetoworkspace "$current_ws",address:"$window_address"
