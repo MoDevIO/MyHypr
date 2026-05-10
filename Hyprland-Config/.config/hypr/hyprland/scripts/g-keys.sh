@@ -33,7 +33,8 @@ BINDINGS[org.gnome.Nautilus_mouse-G4]="key alt+left # Backward"
 BINDINGS[org.gnome.Nautilus_G2]="key alt+left # Backward"
 
 # --- System-wide ---
-BINDINGS[_mouse-G2]="key super+r #App launcher"
+BINDINGS[_mouse-G2]="key c #Dash"
+
 
 
 # =====================
