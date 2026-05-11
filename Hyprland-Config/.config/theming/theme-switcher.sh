@@ -267,9 +267,14 @@ apply_theme() {
     fi
 
     # Hyprland
-    envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
+    if [ -f "$HOME/.config/hypr/hyprland/appearance.lua.template" ]; then
+        envsubst < "$HOME/.config/hypr/hyprland/appearance.lua.template" \
+            > "$HOME/.config/hypr/hyprland/appearance.lua"
+    elif [ -f "$HOME/.config/hypr/hyprland/design.conf.template" ]; then
+        envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
             > "$HOME/.config/hypr/hyprland/design.conf"
-        render_hyprlock_config
+    fi
+    render_hyprlock_config
     hyprctl reload 2>/dev/null
 
     # Reload running GTK app instances (delayed so theme files and hypr reload settle).

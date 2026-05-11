@@ -22,6 +22,7 @@ local function keybinds(programs)
     hl.bind("SUPER + M", hl.dsp.exit())
     hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd(programs.reloadMybar))
     hl.bind("SUPER + ALT + SPACE" , hl.dsp.exec_cmd("~/.config/hypr/hyprland/scripts/movewindowtomouse.sh"))
+    hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("~/.config/theming/theme-switcher.sh"))
 
     hl.bind("SUPER + left",  hl.dsp.focus({ direction = "left" }))
     hl.bind("SUPER + right", hl.dsp.focus({ direction = "right" }))

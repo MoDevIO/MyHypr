@@ -31,3 +31,4 @@ Hyprland-Config/.themes/MyTheme/gtk-4.0/libadwaita-tweaks.css
 Hyprland-Config/.themes/MyTheme/gtk-3.0/gtk.css
 
 Hyprland-Config/.config/hypr/hyprlock.conf
+Hyprland-Config/.config/hypr/hyprland/appearance.lua

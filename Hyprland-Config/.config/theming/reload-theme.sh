@@ -271,8 +271,13 @@ if command -v gsettings >/dev/null 2>&1; then
 fi
 
 # Hyprland
-envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
-        > "$HOME/.config/hypr/hyprland/design.conf"
+if [ -f "$HOME/.config/hypr/hyprland/appearance.lua.template" ]; then
+        envsubst < "$HOME/.config/hypr/hyprland/appearance.lua.template" \
+                > "$HOME/.config/hypr/hyprland/appearance.lua"
+elif [ -f "$HOME/.config/hypr/hyprland/design.conf.template" ]; then
+        envsubst < "$HOME/.config/hypr/hyprland/design.conf.template" \
+                > "$HOME/.config/hypr/hyprland/design.conf"
+fi
     render_hyprlock_config
 hyprctl reload 2>/dev/null
 
