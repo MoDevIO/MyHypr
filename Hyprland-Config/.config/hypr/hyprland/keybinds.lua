@@ -20,6 +20,7 @@ local function keybinds(programs)
 
 
     hl.bind("SUPER + M", hl.dsp.exit())
+    hl.bind("SUPER + O", hl.dsp.dpms({ state = "toggle" }))
     hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd(programs.reloadMybar))
     hl.bind("SUPER + ALT + SPACE" , hl.dsp.exec_cmd("~/.config/hypr/hyprland/scripts/movewindowtomouse.sh"))
     hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("~/.config/theming/theme-switcher.sh"))
@@ -33,11 +34,15 @@ local function keybinds(programs)
     hl.bind("SUPER + SHIFT + up",    hl.dsp.window.move({ direction = "up" }))
     hl.bind("SUPER + SHIFT + down",  hl.dsp.window.move({ direction = "down" }))
 
+    hl.bind("ALT + TAB", hl.dsp.focus({ last = true }))
+
     hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
     hl.bind("SUPER + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
     hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })
     hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+    hl.bind("SUPER + V" , hl.dsp.window.float())
 
     hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
     hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
@@ -59,6 +64,11 @@ local function keybinds(programs)
 
 
     require("hyprland/gkeys")
+
+
+
+
+
 
 end
 

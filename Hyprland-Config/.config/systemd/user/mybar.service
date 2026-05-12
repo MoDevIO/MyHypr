@@ -1,19 +1,12 @@
 [Unit]
 Description=AGS Status Bar
-# Ensures it only starts after the graphical session is ready
+PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
-# 'dbus' type is often better for status bars that communicate over a bus
 Type=simple
 ExecStart=/usr/bin/ags run %h/.config/ags/status-bar/app.ts
-ExecStop=pkill -f "gjs" 2>/dev/null
 Restart=on-failure
-# This ensures AGS has access to your display and Wayland socket
-Environment=WAYLAND_DISPLAY=wayland-1
-Environment=DISPLAY=:0
-Environment=XDG_CURRENT_DESKTOP=Hyprland
 
 [Install]
-# This target is specifically for user graphical sessions
 WantedBy=graphical-session.target
