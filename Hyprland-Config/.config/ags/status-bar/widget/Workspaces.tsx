@@ -256,7 +256,11 @@ function WsButton({
       })}
       onClicked={() => {
         try {
-          exec(["hyprctl", "dispatch", "workspace", `${realId}`])
+          exec([
+            "hyprctl",
+            "dispatch",
+            `hl.dsp.focus({ workspace = ${realId} })`,
+          ])
         } catch {}
       }}
       $={(self) => {

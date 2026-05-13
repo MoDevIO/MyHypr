@@ -43,6 +43,7 @@ local function keybinds(programs)
     hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
     hl.bind("SUPER + V" , hl.dsp.window.float())
+    hl.bind("SUPER + F", hl.dsp.window.fullscreen())
 
     hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
     hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
