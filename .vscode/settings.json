@@ -1,4 +1,8 @@
 {
   "Lua.workspace.library": ["/usr/share/hypr/stubs"],
-  "Lua.diagnostics.globals": ["hl"]
+  "Lua.diagnostics.globals": ["hl"],
+
+  "code-runner.executorMap": {
+    "qml": "systemctl --user is-active --quiet mybar.service && (systemctl --user stop mybar.service && qs --config \"$dir\" &) || (killall qs; systemctl --user start mybar.service)"
+  }
 }
